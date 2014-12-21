@@ -39,6 +39,12 @@ try:
 finally:
     f.close()
 
+# Define a phone number reversal function, as it is observed that the phone numbers displayed are reversed while stored in HTML object.
+
+def phone_no_reverse(string1):
+	return string1[::-1].replace('(', '%temp%').replace(')', '(').replace('%temp%', ')')
+
+
 # Define the function that will take the list of the individual results with link, and scrap the much needed information,
 # only to be inserted into the csv file.
 
@@ -58,7 +64,8 @@ def scrap_individual_result(my_list):
 			seller_name = "Error in the seller name found"
 		# Seller phone number
 		find_seller_phone = new_soup.find_all('div',{'class':'phone'})
-		final_seller_number = find_seller_phone[0].text
+		seller_number = find_seller_phone[0].text
+		final_seller_number = phone_no_reverse(seller_number) # Make a function call to retrieve a correct phone number
 		# Make of the boat
 		find_bd_make = new_soup.find_all('span',{'class':'bd-make'})
 		final_boat_make = find_bd_make[0].text
