@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup, SoupStrainer
 
 # Step 2. Now start at the first search result page (manually grab the url). 
 
-my_search_result = 'http://sfbay.craigslist.org/search/sss?query=ipad%20air%202&sort=rel'
+my_search_result = 'http://sfbay.craigslist.org/search/zip?query=sofa'
 
 r = requests.get(my_search_result)
 
@@ -38,6 +38,9 @@ def visit_links(all_result_links, counter_value):
 		bs = BeautifulSoup(raw_indi_result,'html.parser')
 		extract_title = bs.find_all('h2', {'class':'postingtitle'})
 		print extract_title[0].text.rstrip()
+		print
+		extract_body = bs.find_all('section', {'id': 'postingbody'}) 
+		print extract_body[0].text.rstrip()
 
 	print "I am done printing all the output titles..now find the Next button on the search result page and click it: " + str(counter_value)
 
