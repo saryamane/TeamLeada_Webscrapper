@@ -1,0 +1,20 @@
+Step1). First of all, I created a search URL, by manually inputting the search parameter in the browser and copying the URL link thus generated.
+
+Step2). I make a call to the website, and the server returns me a bunch of results in the form of raw unformatted HTML. Since that being so hard to parse and debug, we used BeautifulSoup package within python, to prettify it and also provide us with powerful search like capabilities.
+
+Step3). To get the individual result title, we inspected the element on the search results page to see how do we get to the title. It appeared to us, that it was referenced within a div tag with a unique class id of 'ad-title'. We used that within our search query to pick all the titles within the search result page (25 per page were being displayed at a time).
+
+Step4). Next we wanted to know, how many unique results are returned by our search parameter, so we started to hunt for total number of listings. We also observed those were presented within the div tags of class id of 'search-viewing'. However we had to use some regular expression to get the desired number we wanted, which would be programmatically useful for us.
+
+Step5). Then we initialized the output csv file (passed as a parameter by the user), filling it with hardcoded header record.
+
+Step6). We then created a function called scrap_individual_result which takes a list of href elements as input. We needed this, because it will be called for each list of 25 elements created in Step3. This function will be responsible for extracting the individual element of interest from the individual title elements, and then writing those fetched variables to the csv file one record at a time.
+
+Step7). We initialized a counter to 25 (ignoring the first 25 records from the original search), then within a while loop with the counter being less than 800, we do the following tasks.
+
+- Move to the next page, by inspecting the current soup object and then making that next URL call.
+- Now, new 25 results are fetched into the soup object replacing the one created in Step2.
+- Fetch those 25 result titles into a list.
+- Call the function defined in Step6 passing this new list as in input parameter.
+- Increment the counter by 25.
+- Iterate.
